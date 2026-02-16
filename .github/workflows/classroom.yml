@@ -55,7 +55,10 @@ jobs:
           fi
           # Always install pytest (and pytest-cov if you want coverage)
           pip install pytest pytest-json-report
-
+          
+      - name: Ensure repo root is importable
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+        
       - name: Run pytest
         run: |
           pytest -q \
