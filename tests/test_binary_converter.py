@@ -3,7 +3,7 @@ Use pytest to test the binary converter functions.
 """
 import sys
 import pytest
-import binary_converter.binary_converter as bc
+import binary_converter as bc
 
 def test_decimal_to_binary():
     """
