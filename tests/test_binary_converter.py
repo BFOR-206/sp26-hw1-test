@@ -1,7 +1,6 @@
 """
 Use pytest to test the binary converter functions.
 """
-import sys
 import pytest
 import binary_converter as bc
 
@@ -27,36 +26,52 @@ def test_binary_to_decimal():
     assert bc.binary_to_decimal('1010') == 10
     assert bc.binary_to_decimal('11111111') == 255
 
-def test_check_arguments():
+@pytest.mark.parametrize("conversion_type", ["d2b", "b2d"])
+def test_check_conversion_type_valid(conversion_type):
     """
-    Test the check_arguments function with various inputs.        
+    Test the check_conversion_type function with valid inputs.
     """
+    assert bc.check_conversion_type(conversion_type) is True
 
-    # Test valid arguments
-    sys.argv = ['binary_converter.py', 'd2b', '10']
-    conversion_type, number = bc.check_arguments()
-    assert conversion_type == 'd2b'
-    assert number == '10'
 
-    sys.argv = ['binary_converter.py', 'b2d', '1010']
-    conversion_type, number = bc.check_arguments()
-    assert conversion_type == 'b2d'
-    assert number == '1010'
+@pytest.mark.parametrize("conversion_type", ["", "d2d", "b2b", "invalid", "D2B"])
+def test_check_conversion_type_invalid(conversion_type):
+    """
+    Test the check_conversion_type function with invalid inputs.
+    """
+    assert bc.check_conversion_type(conversion_type) is False
 
-    # Test invalid conversion type
-    sys.argv = ['binary_converter.py', 'invalid', '10']
-    with pytest.raises(SystemExit):
-        bc.check_arguments()
 
-    # Test invalid number for decimal to binary
-    sys.argv = ['binary_converter.py', 'd2b', 'invalid']
-    with pytest.raises(SystemExit):
-        bc.check_arguments()
+@pytest.mark.parametrize("number", ["0", "1", "10", "255", "1000"])
+def test_check_decimal_number_valid(number):
+    """
+    Test the check_decimal_number function with valid inputs.
+    """
+    assert bc.check_decimal_number(number) is True
 
-    # Test invalid number for binary to decimal
-    sys.argv = ['binary_converter.py', 'b2d', '102']
-    with pytest.raises(SystemExit):
-        bc.check_arguments()
+
+@pytest.mark.parametrize("number", ["-1", "3.5", "abc", "", "1 0"])
+def test_check_decimal_number_invalid(number):
+    """
+    Test the check_decimal_number function with invalid inputs.
+    """
+    assert bc.check_decimal_number(number) is False
+
+
+@pytest.mark.parametrize("bits", ["0", "1", "10", "1010", "11111111"])
+def test_check_binary_number_valid(bits):
+    """
+    Test the check_binary_number function with valid inputs.
+    """
+    assert bc.check_binary_number(bits) is True
+
+
+@pytest.mark.parametrize("bits", ["", "2", "102", "10a", "-101"])
+def test_check_binary_number_invalid(bits):
+    """
+    Test the check_binary_number function with invalid inputs.
+    """
+    assert bc.check_binary_number(bits) is False
 
         
     

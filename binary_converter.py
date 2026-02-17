@@ -14,8 +14,16 @@ def binary_to_decimal(b):
     """Convert a binary number to decimal."""
     pass
 
-def check_arguments():
+def check_conversion_type(conversion_type):
     """Check if the command line arguments are valid."""
+    pass
+
+def check_decimal_number(n):
+    """Check if the decimal number is valid."""
+    pass
+
+def check_binary_number(b):
+    """Check if the binary number is valid."""
     pass
 
 
