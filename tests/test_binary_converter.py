@@ -34,24 +34,24 @@ def test_check_arguments():
 
     # Test valid arguments
     sys.argv = ['binary_converter.py', 'd2b', '10']
-    conversion_type, number = bc.check_arguments()
+    conversion_type, number = bc.check_arguments(sys.argv)
     assert conversion_type == 'd2b'
     assert number == '10'
 
     sys.argv = ['binary_converter.py', 'b2d', '1010']
-    conversion_type, number = bc.check_arguments()
+    conversion_type, number = bc.check_arguments(sys.argv)
     assert conversion_type == 'b2d'
     assert number == '1010'
 
     # Test invalid conversion type
     sys.argv = ['binary_converter.py', 'invalid', '10']
     with pytest.raises(SystemExit):
-        bc.check_arguments()
+        bc.check_arguments(sys.argv)
 
     # Test invalid number for decimal to binary
     sys.argv = ['binary_converter.py', 'd2b', 'invalid']
     with pytest.raises(SystemExit):
-        bc.check_arguments()
+        bc.check_arguments(sys.argv)
 
     # Test invalid number for binary to decimal
     sys.argv = ['binary_converter.py', 'b2d', '102']
