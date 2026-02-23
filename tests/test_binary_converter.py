@@ -36,7 +36,7 @@ def test_check_arguments():
     sys.argv = ['binary_converter.py', 'd2b', '10']
     conversion_type, number = bc.check_arguments(sys.argv)
     assert conversion_type == 'd2b'
-    assert number == '10'
+    assert number == 10
 
     sys.argv = ['binary_converter.py', 'b2d', '1010']
     conversion_type, number = bc.check_arguments(sys.argv)
@@ -56,7 +56,7 @@ def test_check_arguments():
     # Test invalid number for binary to decimal
     sys.argv = ['binary_converter.py', 'b2d', '102']
     with pytest.raises(SystemExit):
-        bc.check_arguments()
+        bc.check_arguments()sys.argv
 
         
     
